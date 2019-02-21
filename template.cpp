@@ -2,7 +2,7 @@
 using namespace std;
 #define incant() cin.tie(0), ios::sync_with_stdio(false)
 #define int long long
-#define uint unsigned int
+#define uint unsigned long long
 #define double long double
 using str = string;
 template <class T> using vec = vector<T>;
@@ -31,8 +31,6 @@ using pqp = pque<pint>;
 #define mt make_tuple
 #define fir first
 #define sec second
-#define is ==
-#define isnt !=
 #define chmax(x, y) x = max(x, y)
 #define chmin(x, y) x = min(x, y)
 #define sz(x) x.size()
@@ -40,10 +38,10 @@ using pqp = pque<pint>;
 #define rall(x) rbegin(x), rend(x)
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for(int i = int(a); i < int(b); i++)
+#define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep,)(__VA_ARGS__)
 #define _rev(i, n) revi(i, n, 0)
-#define revi(i, a, b) for(int i = int(a - 1); i >= int(b); i--)
+#define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload3(__VA_ARGS__, revi, _rev,)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
 #define out(x) cout << (x)
@@ -56,7 +54,7 @@ using pqp = pque<pint>;
 #define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
 #define Pos(x) print((x) ? "Possible" : "Impossible")
 #define pos(x) print((x) ? "possible" : "impossible")
-int gcd(int a, int b){return b is 0 ? a : gcd(b, a % b);}
+int gcd(int a, int b){return b == 0 ? a : gcd(b, a % b);}
 int lcm(int a, int b){return a / gcd(a, b) * b;}
 int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
