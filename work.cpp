@@ -36,6 +36,7 @@ using pqp = pque<pint>;
 #define sz(x) x.size()
 #define all(x) begin(x), end(x)
 #define rall(x) rbegin(x), rend(x)
+#define ms(v, x) memset(v, x, sizeof v)
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
@@ -47,7 +48,7 @@ using pqp = pque<pint>;
 #define out(x) cout << (x)
 #define indent() cout << '\n'
 #define print(x) out(x), indent()
-#define debug(x) cerr << __LINE__ << ": " << #x << ": " << (x), indent()
+#define debug(x) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n'
 #define YN(x) print((x) ? "YES" : "NO")
 #define Yn(x) print((x) ? "Yes" : "No")
 #define yn(x) print((x) ? "yes" : "no")
@@ -68,10 +69,11 @@ str s, t;
 
 signed main(){
     incant();
-    while(cin >> ){
-        int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {}, b[] = {};
+    while(cin >> n){
+        int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {0, 4,4,56,65,46,65,46}, b[] = {}, c[] = {};
         bool flag = true;
-
-        print();
+        each(i, a){
+            print(i);
+        }
     }
 }
