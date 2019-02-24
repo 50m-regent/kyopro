@@ -71,6 +71,6 @@ bool flag = true;
 
 signed main(){
     incant();
-
+    
     print();
 }
