@@ -63,6 +63,13 @@ int gcd(int a, int b){return b == 0 ? a : gcd(b, a % b);}
 int lcm(int a, int b){return a / gcd(a, b) * b;}
 int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
+int combination(int n, int r) {
+    int res = 1;
+    rep(i, 1, r + 1){
+        res *= n--, res /= i;
+    }
+    return res;
+}
 const str alphabet = "abcdefghijklmnopqrstuvwxyz";
 int n, m, x, y, z, w, h;
 str s, t;
@@ -72,7 +79,7 @@ signed main(){
     while(cin >> ){
         int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {}, b[] = {}, c[] = {};
         bool flag = true;
-
+        
         print();
     }
 }
