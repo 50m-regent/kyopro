@@ -55,48 +55,24 @@ using pqp = pque<pint>;
 #define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
 #define Pos(x) print((x) ? "Possible" : "Impossible")
 #define pos(x) print((x) ? "possible" : "impossible")
-const int INF = 1e16, MOD = 1e9 + 7;
-const int dx4[] = {-1, 0, 1, 0}, dy4[] = {0, -1, 0, 1};
-const int dx8[] = {-1, 0, 1, -1, 1, -1, 0, 1}, dy8[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-const double EPS = 1e-9;
 int gcd(int a, int b){return b == 0 ? a : gcd(b, a % b);}
 int lcm(int a, int b){return a / gcd(a, b) * b;}
 int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
+const int INF = 1e16, MOD = 1e9 + 7;
+const int dx4[] = {-1, 0, 1, 0}, dy4[] = {0, -1, 0, 1};
+const int dx8[] = {-1, 0, 1, -1, 1, -1, 0, 1}, dy8[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+const double EPS = 1e-9;
 const str alphabet = "abcdefghijklmnopqrstuvwxyz";
 int n, m, x, y, z, w, h;
 str s, t;
-int fact[200001] = {1}, inv_fact[200001] = {};
-
-int power(int x, int y){
-    if(y == 0){
-        return 1;
-    }else if(y == 1){
-        return x % MOD;
-    }else{
-        return power(x * x, y / 2) * (y % 2 ? x : 1) % MOD;
-    }
-}
-
-int combi(int x, int y){
-    return fact[x] * inv_fact[y] * inv_fact[x - y] % MOD;
-}
 
 signed main(){
     incant();
-    while(cin >> h >> w >> y >> x){
+    while(cin >> ){
         int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {}, b[] = {}, c[] = {};
         bool flag = true;
-        rep(i, 1, h + w){
-            fact[i] = fact[i - 1] * i % MOD;
-        }
-        inv_fact[h + w] = power(fact[h + w], MOD - 2);
-        rev(i, h + w){
-            inv_fact[i] = inv_fact[i + 1] * (i + 1) % MOD;
-        }
-        rep(i, b, w){
-            res = (res + combi(h - y - 1 + i, i)) * combi(y + w - i, w - i + 1) % MOD;
-        }
-        print(res);
+
+        print();
     }
 }
