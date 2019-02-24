@@ -55,7 +55,7 @@ using pqp = pque<pint>;
 #define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
 #define Pos(x) print((x) ? "Possible" : "Impossible")
 #define pos(x) print((x) ? "possible" : "impossible")
-const int INF = 1e16, MOD = 1e9 + 7, LIMIT = 100001;
+const int INF = 1e16, MOD = 1e9 + 7;
 const int dx4[] = {-1, 0, 1, 0}, dy4[] = {0, -1, 0, 1};
 const int dx8[] = {-1, 0, 1, -1, 1, -1, 0, 1}, dy8[] = {-1, -1, -1, 0, 0, 1, 1, 1};
 const double EPS = 1e-9;
@@ -65,12 +65,15 @@ int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
 int combination(int n, int r) {int res = 1; rep(i, 1, r + 1) res *= n--, res /= i; return res;}
 const str alphabet = "abcdefghijklmnopqrstuvwxyz";
-int a, b, c, k, n, m, x, y, z, w, h, res = 0, cnt = 0, mx = -INF, mn = INF;
+int n, m, x, y, z, w, h;
 str s, t;
-bool flag = true;
 
 signed main(){
     incant();
-
-    print();
+    while(cin >> ){
+        int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {}, b[] = {}, c[] = {};
+        bool flag = true;
+        
+        print();
+    }
 }
