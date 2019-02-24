@@ -36,7 +36,7 @@ using pqp = pque<pint>;
 #define sz(x) x.size()
 #define all(x) begin(x), end(x)
 #define rall(x) rbegin(x), rend(x)
-#define ms(v, x) memset(v, x, sizeof v)
+#define ms(v, x) memset(v, x, sizeof(v))
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
@@ -73,7 +73,7 @@ signed main(){
     while(cin >> ){
         int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {}, b[] = {}, c[] = {};
         bool flag = true;
-        
+
         print();
     }
 }
