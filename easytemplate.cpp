@@ -29,6 +29,8 @@ using pqp = pque<pint>;
 #define pof pop_front
 #define mp make_pair
 #define mt make_tuple
+#define lb lower_bound
+#define ub upper_bound
 #define fir first
 #define sec second
 #define chmax(x, y) x = max(x, y)
@@ -46,6 +48,7 @@ using pqp = pque<pint>;
 #define rev(...) _overload3(__VA_ARGS__, revi, _rev,)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
 #define out(x) cout << (x)
+#define space() cout << " "
 #define indent() cout << '\n'
 #define print(x) out(x), indent()
 #define debug(x) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n'
@@ -55,23 +58,23 @@ using pqp = pque<pint>;
 #define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
 #define Pos(x) print((x) ? "Possible" : "Impossible")
 #define pos(x) print((x) ? "possible" : "impossible")
-const int INF = 1e16, MOD = 1e9 + 7;
-const int dx4[] = {-1, 0, 1, 0}, dy4[] = {0, -1, 0, 1};
-const int dx8[] = {-1, 0, 1, -1, 1, -1, 0, 1}, dy8[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+const int INF = LLONG_MAX - INT_MAX, MOD = 1e9 + 7, LIMIT = 100001;
+const int dx[] = {-1, 0, 1, 0}, dy[] = {0, -1, 0, 1};
+// const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1}, dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
 const double EPS = 1e-9;
 int gcd(int a, int b){return b == 0 ? a : gcd(b, a % b);}
 int lcm(int a, int b){return a / gcd(a, b) * b;}
 int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
-int combination(int n, int r) {int res = 1; rep(i, 1, r + 1) res *= n--, res /= i; return res;}
+int combination(int n, int r){int res = 1; rep(i, 1, r + 1) res *= n--, res /= i; return res;}
 const str alphabet = "abcdefghijklmnopqrstuvwxyz";
-int n, m, x, y, z, w, h;
+int a, b, c, k, n, m, x, y, z, w, h;
 str s, t;
 
 signed main(){
     incant();
     while(cin >> ){
-        int res = 0, cnt = 0, mx = -INF, mn = INF, a[] = {}, b[] = {}, c[] = {};
+        int res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
         bool flag = true;
 
         print();

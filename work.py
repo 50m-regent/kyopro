@@ -1,20 +1,30 @@
-import os
-import math
-import itertools as iter
-import functools as func
-INF, MOD = float("inf"), 1e9 + 7
-MAX, MIN = -INF, INF
-dx1, dy1, dx2, dy2 = [-1, 0, 1, 0], [0, -1, 0, 1], [-1, 0, 1, -1, 1, -1, 0, 1], [-1, -1, -1, 0, 0, 1, 1, 1]
+n = int(input())
+jp = [0] + list(map(int,input().split())) + [0]
+cnt = {}
 
-def get_int():
-    return int(input())
+for i in range(n + 1):
+    if jp[i] < jp[i + 1]:
+        try:
+            cnt[jp[i]] += 1
+        except KeyError:
+            cnt[jp[i]] = 1
+        try:
+            cnt[jp[i + 1]] -= 1
+        except KeyError:
+            cnt[jp[i + 1]] = -1
+    elif jp[i] > jp[i + 1]:
+        try:
+            cnt[jp[i]] -= 1
+        except KeyError:
+            cnt[jp[i]] = -1
+        try:
+            cnt[jp[i + 1]] += 1
+        except KeyError:
+            cnt[jp[i + 1]] = 1
 
-def get_int_list():
-    return list(map(int, input().split()))
-
-while(True):
-    try:
-
-        print()
-    except EOFError:
-        exit()
+heights = sorted(cnt.keys())
+s, m = 0, 0
+for h in heights:
+  s += cnt[h]
+  m = max(m, s)
+print(m // 2)
