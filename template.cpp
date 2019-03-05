@@ -47,7 +47,7 @@ void print(){}
 template<typename F, typename... R>
 void print(F& f, R&... r){out(f), space(), print(r...);}
 #define printv(x) each(i, x) out(i), space(); indent()
-#define debug(x, ...) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n', debug(__VA_ARGS__)
+#define debug(x, ...) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n'
 #define YN(x) print((x) ? "YES" : "NO")
 #define Yn(x) print((x) ? "Yes" : "No")
 #define yn(x) print((x) ? "yes" : "no")
