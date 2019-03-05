@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define incant() cin.tie(0), ios::sync_with_stdio(false)
+#define name(x) #x
 #define int long long
 #define double long double
 template <class T> using pqueue = priority_queue<T>;
@@ -29,28 +30,32 @@ using pqp = pqueue<pint>;
 #define chmin(x, y) x = min(x, y)
 #define sz(x) x.size()
 #define all(x) begin(x), end(x)
-#define _overload3(_1, _2, _3, name, ...) name
+#define _overload(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
-#define rep(...) _overload3(__VA_ARGS__, repi, _rep,)(__VA_ARGS__)
+#define rep(...) _overload(__VA_ARGS__, repi, _rep,)(__VA_ARGS__)
 #define _rev(i, n) revi(i, n, 0)
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
-#define rev(...) _overload3(__VA_ARGS__, revi, _rev,)(__VA_ARGS__)
+#define rev(...) _overload(__VA_ARGS__, revi, _rev,)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
 #define out(x) cout << (x)
 #define space() cout << " "
 #define indent() cout << '\n'
-#define print(x) out(x), indent()
-#define debug(x) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n'
+void print(){}
+template<typename F, typename... R>
+void print(F& f, R&... r){out(f), indent(), print(r...);}
+#define printvec(x) each(i, x) out(i), space(); indent()
+void debug(){}
+template<typename F, typename... R>
+void debug(F& f, R&... r){cerr << __LINE__ << ": " << name(f) << ": " << (f) << '\n', debug(r...);}
 #define YN(x) print((x) ? "YES" : "NO")
 #define Yn(x) print((x) ? "Yes" : "No")
 #define yn(x) print((x) ? "yes" : "no")
 #define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
 #define Pos(x) print((x) ? "Possible" : "Impossible")
 #define pos(x) print((x) ? "possible" : "impossible")
-const int INF = LLONG_MAX - INT_MAX, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
-const int dx[] = {-1, 0, 1, 0, 0}, dy[] = {0, -1, 0, 1, 0};
-// const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1, 0}, dy[] = {-1, -1, -1, 0, 0, 1, 1, 1, 0};
+const int INF = 1e16, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
+const int dx[] = {0, 0, 1, 0, -1, -1, 1, 1, -1}, dy[] = {0, -1, 0, 1, 0, -1, -1, 1, 1};
 const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 int a, b, c, k, n, m, x, y, z, w, h, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
 string s, t;

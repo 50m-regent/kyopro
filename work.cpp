@@ -48,7 +48,7 @@ using pqp = pqueue<pint>;
 #define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
 #define Pos(x) print((x) ? "Possible" : "Impossible")
 #define pos(x) print((x) ? "possible" : "impossible")
-const int INF = LLONG_MAX - INT_MAX, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
+const int INF = 1e16, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
 const int dx[] = {-1, 0, 1, 0, 0}, dy[] = {0, -1, 0, 1, 0};
 // const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1, 0}, dy[] = {-1, -1, -1, 0, 0, 1, 1, 1, 0};
 const string alphabet = "abcdefghijklmnopqrstuvwxyz";
