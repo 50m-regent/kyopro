@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define incant() cin.tie(0), ios::sync_with_stdio(false)
-#define name(x) #x
 #define int long long
 #define double long double
 template <class T> using pqueue = priority_queue<T>;
@@ -38,16 +37,17 @@ using pqp = pqueue<pint>;
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev,)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
+void in(){}
+template<typename F, typename... R>
+void in(F& f, R&... r){cin >> f, in(r...);}
 #define out(x) cout << (x)
 #define space() cout << " "
 #define indent() cout << '\n'
 void print(){}
 template<typename F, typename... R>
-void print(F& f, R&... r){out(f), indent(), print(r...);}
-#define printvec(x) each(i, x) out(i), space(); indent()
-void debug(){}
-template<typename F, typename... R>
-void debug(F& f, R&... r){cerr << __LINE__ << ": " << name(f) << ": " << (f) << '\n', debug(r...);}
+void print(F& f, R&... r){out(f), space(), print(r...);}
+#define printv(x) each(i, x) out(i), space(); indent()
+#define debug(x, ...) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n', debug(__VA_ARGS__)
 #define YN(x) print((x) ? "YES" : "NO")
 #define Yn(x) print((x) ? "Yes" : "No")
 #define yn(x) print((x) ? "yes" : "no")
@@ -92,7 +92,7 @@ struct UF{
 
 signed main(){
     incant();
-    cin >> ;
+    in();
 
     print();
 }
