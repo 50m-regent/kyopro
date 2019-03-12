@@ -1,30 +1,20 @@
 n = int(input())
-jp = [0] + list(map(int,input().split())) + [0]
-cnt = {}
-
-for i in range(n + 1):
-    if jp[i] < jp[i + 1]:
-        try:
-            cnt[jp[i]] += 1
-        except KeyError:
-            cnt[jp[i]] = 1
-        try:
-            cnt[jp[i + 1]] -= 1
-        except KeyError:
-            cnt[jp[i + 1]] = -1
-    elif jp[i] > jp[i + 1]:
-        try:
-            cnt[jp[i]] -= 1
-        except KeyError:
-            cnt[jp[i]] = -1
-        try:
-            cnt[jp[i + 1]] += 1
-        except KeyError:
-            cnt[jp[i + 1]] = 1
-
-heights = sorted(cnt.keys())
-s, m = 0, 0
-for h in heights:
-  s += cnt[h]
-  m = max(m, s)
-print(m // 2)
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+extra = []
+loss = ans = 0
+for i in range(n):
+    dif = a[i] - b[i]
+    extra.append(dif)
+    loss += min(0, dif)
+    if dif < 0:
+        ans += 1
+extra.sort(reverse=True)
+for num in extra:
+    if loss < 0:
+        loss += num
+        ans += 1
+    else:
+        print(ans)
+        exit()
+print(-1)
