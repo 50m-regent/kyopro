@@ -15,8 +15,11 @@ template<class T> using pque = priority_queue<T>;
 using vint = vector<int>;
 using vstr = vector<string>;
 using pint = pair<int, int>;
+using ppi = pair<int, pint>;
 using vp = vector<pint>;
+using vppi = vector<ppi>;
 using mint = map<int, int>;
+using mpi = map<int, pint>;
 using dict = map<string, int>;
 using sint = set<int>;
 using sp = set<pint>;
@@ -28,6 +31,7 @@ using pqp = pque<pint>;
 #define chmin(x, y) x = min(x, y)
 #define sz(x) x.size()
 #define all(x) (x).begin(), (x).end()
+#define sortv(v) sort(all(v))
 #define _overload(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
@@ -42,12 +46,12 @@ using pqp = pque<pint>;
 #define indent() cout << '\n'
 #define printv(x) each(i, x) out(i), space(); indent()
 #define debug(x, ...) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n'
-#define YN(x) print((x) ? "YES" : "NO")
-#define Yn(x) print((x) ? "Yes" : "No")
-#define yn(x) print((x) ? "yes" : "no")
-#define POS(x) print((x) ? "POSSIBLE" : "IMPOSSIBLE")
-#define Pos(x) print((x) ? "Possible" : "Impossible")
-#define pos(x) print((x) ? "possible" : "impossible")
+#define YN(x) out((x) ? "YES" : "NO"), indent()
+#define Yn(x) out((x) ? "Yes" : "No"), indent()
+#define yn(x) out((x) ? "yes" : "no"), indent()
+#define POS(x) out((x) ? "POSSIBLE" : "IMPOSSIBLE"), indent()
+#define Pos(x) out((x) ? "Possible" : "Impossible"), indent()
+#define pos(x) out((x) ? "possible" : "impossible"), indent()
 void in(){}
 template<typename F, typename... R> void in(F& f, R&... r){
     cin >> f, in(r...);
@@ -105,7 +109,7 @@ void warshall(int n){
         }
     }
 }
-mint factoriazation(int n){
+mint factorization(int n){
     mint ans;
     rep(i, 2, sqrt(n) + 1){
         if(i > 3){
@@ -143,9 +147,8 @@ struct UF{
         return x != y;
     }
 };
-int a, b, c, k, n, m, x, y, w, h, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
+int a, b, c, k, n, m, x, y, h, w, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
 string s, t;
-
 main(){
     incant();
     in();
