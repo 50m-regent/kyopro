@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define incant() cin.tie(0), ios::sync_with_stdio(false)
+#define INCANT cin.tie(0), ios::sync_with_stdio(false)
 #define int long long
 #define double long double
 #define pb push_back
@@ -8,6 +8,7 @@ using namespace std;
 #define mt make_tuple
 #define lb lower_bound
 #define ub upper_bound
+#define bs binary_search
 #define F first
 #define S second
 #define gcd __gcd
@@ -25,7 +26,7 @@ using sint = set<int>;
 using sp = set<pint>;
 using qint = queue<int>;
 using qp = queue<pint>;
-using pqint = pque<int>;
+using pqi = pque<int>;
 using pqp = pque<pint>;
 #define chmax(x, y) x = max(x, y)
 #define chmin(x, y) x = min(x, y)
@@ -70,11 +71,14 @@ int g[S_LIMIT][S_LIMIT] = {};
 int lcm(int a, int b){
     return a/gcd(a, b)*b;
 }
-int modpw(int x, int n){
-    return n < 2 ? x : modpw(x*x%MOD, n/2)*(n%2 ? x : 1)%MOD;
+int modpow(int x, int n){
+    return n < 2 ? x : modpow(x*x%MOD, n/2)*(n%2 ? x : 1)%MOD;
 }
 int factorial(int a){
     return a < 2 ? 1 : factorial(a - 1)*a;
+}
+int modfact(int a){
+    return a < 2 ? 1 : factorial(a - 1)*a%MOD;
 }
 int summation(int a){
     return a < 1 ? 0 : (a*a + a)/2;
@@ -87,7 +91,7 @@ int combination(int n, int r){
     return res;
 }
 int modcomb(int n, int r){
-    return factorial(n)*modpw(factorial(r), MOD - 2)%MOD*modpw(factorial(n - r), MOD - 2)%MOD;
+    return modfact(n)*modpow(modfact(r), MOD - 2)%MOD*modpow(modfact(n - r), MOD - 2)%MOD;
 }
 bool isPrime(int n){
     rep(i, 2, sqrt(n) + 1){
@@ -108,6 +112,18 @@ void warshall(int n){
             }
         }
     }
+}
+vint divisor(int n){
+    vint ans;
+    rep(i, 1, sqrt(n) + 1){
+        if(!(n%i)){
+            ans.pb(i);
+            if(i*i < n){
+                ans.pb(n/i);
+            }
+        }
+    }
+    return ans;
 }
 mint factorization(int n){
     mint ans;
@@ -150,7 +166,7 @@ struct UF{
 int a, b, c, k, n, m, x, y, h, w, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
 string s, t;
 main(){
-    incant();
+    INCANT;
     in();
 
     out();
