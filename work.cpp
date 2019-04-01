@@ -163,10 +163,11 @@ struct UF{
         return x != y;
     }
 };
-int a, b, c, k, n, m, x, y, h, w, res = 0, sum = 0, mx = -INF, mn = INF;
+int a, b, c, k, n, m, l, r, x, y, h, w, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
 string s, t;
 main(){
     INCANT;
     in();
+
     out();
 }
