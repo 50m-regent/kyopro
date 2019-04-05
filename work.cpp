@@ -5,14 +5,13 @@ using namespace std;
 #define double long double
 #define pb push_back
 #define mp make_pair
-#define F first
-#define S second
 #define gcd __gcd
 #define chmax(x, y) x = max(x, y)
 #define chmin(x, y) x = min(x, y)
 #define sz(x) x.size()
 #define all(x) (x).begin(), (x).end()
 #define sortv(v) sort(all(v))
+#define countv(v, c) count(all(v), c)
 #define _overload(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
@@ -96,7 +95,8 @@ int a, b, c, k, n, m, l, r, x, y, h, w, res = 0, cnt = 0, sum = 0, mx = -INF, mn
 string s, t;
 main(){
     INCANT;
-    in();
+    in(n);
+    int v[n];
 
     out();
 }
