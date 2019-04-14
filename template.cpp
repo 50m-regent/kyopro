@@ -1,15 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define INCANT cin.tie(0), ios::sync_with_stdio(false)
+#define INCANT cin.tie(0), ios::sync_with_stdio(false), cout << fixed << setprecision(20);
 #define int long long
 #define double long double
 #define pb push_back
 #define mp make_pair
 #define mt make_tuple
 #define gcd __gcd
-#define chmax(x, y) x = max(x, y)
-#define chmin(x, y) x = min(x, y)
 #define sz(x) x.size()
 #define all(x) (x).begin(), (x).end()
 #define sortv(v) sort(all(v))
@@ -23,29 +20,36 @@ using namespace std;
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
+void in(){}
+template<typename F, typename... R>
+void in(F& f, R&... r){
+    cin >> f, in(r...);
+}
 #define inv(x) each(i, x) in(i)
 #define out(x) cout << (x)
 #define space() cout << " "
 #define indent() cout << '\n'
 #define print(x) out(x), indent()
 #define printv(x) each(i, x) out(i), space(); indent()
-#define debug(x, ...) cerr << __LINE__ << ": " << #x << ": " << (x) << '\n'
+#define debughead(x) cerr << "Line " << __LINE__ << ": " << #x << ": "
+#define debugout(x) cerr << (x) << " "
+#define debugindent() cerr << '\n'
+#define debug(x)  debughead(x), debugout(x), debugindent()
+#define debugv(x) debughead(x), each(i, x) debugout(i), debugindent()
 #define YN(x) out((x) ? "YES" : "NO"), indent()
 #define Yn(x) out((x) ? "Yes" : "No"), indent()
 #define yn(x) out((x) ? "yes" : "no"), indent()
-
-void in(){}
-template<typename F, typename... R>
-void in(F& f, R&... r){
-    cin >> f, in(r...);
-}
-
-const int INF = 1e16, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
+const int INF = 1e18, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
 const int dx[] = {0, 0, 1, 0, -1, -1, 1, 1, -1}, dy[] = {0, -1, 0, 1, 0, -1, -1, 1, 1};
 const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 int g[S_LIMIT][S_LIMIT] = {};
-
+bool chmax(int& a, int b){
+    return (a = max(a, b)) == b;
+}
+bool chmin(int& a, int b){
+    return (a = min(a, b)) == b;
+}
 int lcm(int a, int b){
     return a / gcd(a, b) * b;
 }
@@ -141,10 +145,57 @@ struct UF{
         return x != y;
     }
 };
-
-int a, b, c, k, n, m, l, r, x, y, h, w, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
+template<typename T>
+struct Segtree{
+    int n;
+    T op;
+    vector<T> elm;
+    function<T(T, T)> f;
+    Segtree(int n, T init, function<T(T, T)> f, T op = T()) :
+        n(n),
+        op(op),
+        elm(2 * n, init),
+        f(f)
+    {
+        for(int i = n - 1; i >= 1; --i)
+            elm[i] = f(elm[2 * i], elm[2 * i + 1]);
+    }
+    Segtree(int n, vector<T> init, function<T(T, T)> f, T op = T()) :
+        n(n),
+        op(op),
+        elm(2 * n),
+        f(f)
+    {
+        for(int i = 0; i < n; ++i)
+            elm[i + n] = init[i];
+        for(int i = n - 1; i >= 1; --i)
+            elm[i] = f(elm[2 * i], elm[2 * i + 1]);
+    }
+    void set(int x, T val){
+        x += n;
+        elm[x] = val;
+        while(x >>= 1)
+            elm[x] = f(elm[2 * x], elm[2 * x + 1]);
+    }
+    void update(int x, T val){
+        x += n;
+        elm[x] = f(val, elm[x]);
+        while(x >>= 1)
+            elm[x] = f(elm[2 * x], elm[2 * x + 1]);
+    }
+    T get(int x, int y) const{
+        T l = op, r = op;
+        for(x += n, y += n - 1; x <= y; x >>= 1, y >>= 1){
+            if(x & 1)
+                l = f(l, elm[x++]);
+            if(!(y & 1))
+                r = f(elm[y--], r);
+        }
+        return f(l, r);
+    }
+};
+int a, b, c, k, n, m, l, r, x, y, h, w, res = 0, sum = 0, mx = -INF, mn = INF;
 string s, t;
-
 main(){
     INCANT;
     in();

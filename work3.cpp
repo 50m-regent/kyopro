@@ -142,12 +142,57 @@ struct UF{
     }
 };
 
-int a, b, c, k, n, m, l, r, x, y, h, w, res = 0, cnt = 0, sum = 0, mx = -INF, mn = INF;
+int a, b, c, k, n, m, l, r, x, y, h, w, res = 0,tmp0 = 0, tmp1 = 0, sum = 0, mx = -INF, mn = INF;
 string s, t;
 
 main(){
     INCANT;
-    in();
-
-    out();
+    in(n, k, s);
+    vector<pair<int, int>> cnt;
+    if(s[0]=='0'){
+        cnt.pb(mp(0,1));
+    }
+    each(c, s){
+        if(c == '1'){
+            if(tmp0){
+                cnt.pb(mp(tmp0, 0));
+            }
+            tmp0 = 0;
+            tmp1++;
+        }else{
+            if(tmp1){
+                cnt.pb(mp(tmp1, 1));
+            }
+            tmp1 = 0;
+            tmp0++;
+        }
+    }
+    if(tmp0){
+        cnt.pb(mp(tmp0, 0));
+    }
+    if(tmp1){
+        cnt.pb(mp(tmp1, 1));
+    }
+    if(cnt.size()%2){
+        cnt.pb(mp(0,0));
+    }
+    vector<int> cnt2;
+    rep(i, 1, cnt.size()){
+        cnt2.pb(cnt[i].first+cnt[i - 1].first);
+        i++;
+    }
+    each(i, cnt2){
+        debug(i);
+    }
+    int tmp;
+    rep(i, k + 1){
+        tmp += cnt2[i];
+    }
+    chmax(res,tmp);
+    rep(i, k + 1, cnt2.size()){
+        tmp+=cnt2[i];
+        tmp-=cnt2[i - k - 1];
+        chmax(res, tmp);
+    }
+    out(res);
 }

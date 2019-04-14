@@ -147,7 +147,21 @@ string s, t;
 
 main(){
     INCANT;
-    in();
-
-    out();
+    in(s);
+    t = s;
+    rep(i, 1, t.size()){
+        if(t[i] == t[i - 1]){
+            t[i] = t[i - 1] == '0' ? '1' : '0';
+            cnt++;
+        }
+    }
+    s[0] = s[0] == '0' ? '1' : '0';
+    res = 1;
+    rep(i, 1, s.size()){
+        if(s[i] == s[i - 1]){
+            s[i] = s[i - 1]=='0'?'1':'0';
+            res++;
+        }
+    }
+    out(min(res, cnt));
 }
