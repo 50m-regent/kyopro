@@ -4,13 +4,16 @@ using namespace std;
 #define int long long
 #define double long double
 #define pb push_back
+#define pf pop_front
 #define mp make_pair
 #define mt make_tuple
 #define gcd __gcd
-#define sz(x) x.size()
+#define fir first
+#define sec second
+#define sz(x) (x).size()
 #define all(x) (x).begin(), (x).end()
 #define sortv(v) sort(all(v))
-#define sortvg(v) sort(all(v), greater<int>())
+#define sortg(v) sort(all(v), greater<int>())
 #define countv(v, c) count(all(v), c)
 #define _overload(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -20,35 +23,50 @@ using namespace std;
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
+template<class T>
+int lb(vector<T>& x, T n){return lower_bound(all(x), n)- x.begin();}
+template<class T>
+int ub(vector<T>& x, T n){return upper_bound(all(x), n) - x.begin();}
 void in(){}
 template<typename F, typename... R>
-void in(F& f, R&... r){
-    cin >> f, in(r...);
+bool in(F& f, R&... r){
+    if(cin >> f){
+        in(r...);
+        return true;
+    }else{
+        return false;
+    }
 }
 #define inv(x) each(i, x) in(i)
 #define out(x) cout << (x)
 #define space() cout << " "
 #define indent() cout << '\n'
-#define print(x) out(x), indent()
+void print(){}
+template<typename F, typename... R>
+void print(F f, R... r){out(f), indent(), print(r...);}
 #define printv(x) each(i, x) out(i), space(); indent()
 #define debughead(x) cerr << "Line " << __LINE__ << ": " << #x << ": "
 #define debugout(x) cerr << (x) << " "
 #define debugindent() cerr << '\n'
-#define debug(x)  debughead(x), debugout(x), debugindent()
+#define debug(x) debughead(x), debugout(x), debugindent()
 #define YN(x) out((x) ? "YES" : "NO"), indent()
 #define Yn(x) out((x) ? "Yes" : "No"), indent()
 #define yn(x) out((x) ? "yes" : "no"), indent()
 const int INF = 1e18, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
+const double EPS = 1e-15, PI = acos(-1);
 const int dx[] = {0, 0, 1, 0, -1, -1, 1, 1, -1}, dy[] = {0, -1, 0, 1, 0, -1, -1, 1, 1};
 const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 int g[S_LIMIT][S_LIMIT] = {};
-bool chmax(int& a, int b){return (a = max(a, b)) == b;}
-bool chmin(int& a, int b){return (a = min(a, b)) == b;}
+int modpow(int x, int n){return n < 2 ? x : modpow(x * x, n / 2) * (n % 2 ? x : 1) % MOD;}
+int modfact(int n){return n < 2 ? 1 : modfact(n - 1) * n % MOD;}
+int modcomb(int n, int r){return modfact(n) * modpow(modfact(r), MOD - 2) % MOD * modpow(modfact(n - r), MOD - 2) % MOD;}
+template<typename T>
+bool chmax(T& a, T b){return (a = max(a, b)) == b;}
+template<typename T>
+bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 int lcm(int a, int b){return a / gcd(a, b) * b;}
-int modpow(int x, int n){return n < 2 ? x : modpow(x * x % MOD, n / 2) * (n % 2 ? x : 1) % MOD;}
-int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
-int modfact(int a){return a < 2 ? 1 : factorial(a - 1) * a % MOD;}
+int faccntal(int a){return a < 2 ? 1 : faccntal(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
 int combination(int n, int r){
     int res = 1;
@@ -57,7 +75,6 @@ int combination(int n, int r){
     }
     return res;
 }
-int modcomb(int n, int r){return modfact(n) * modpow(modfact(r), MOD - 2) % MOD * modpow(modfact(n - r), MOD - 2) % MOD;}
 bool isPrime(int n){
     rep(i, 2, sqrt(n) + 1){
         if(i > 3){
@@ -90,7 +107,7 @@ vector<int> divisor(int n){
     }
     return ans;
 }
-map<int, int> factorization(int n){
+map<int, int> faccntzation(int n){
     map<int, int> ans;
     rep(i, 2, sqrt(n) + 1){
         if(i > 3){
@@ -108,80 +125,69 @@ map<int, int> factorization(int n){
 struct UF{
     vector<int> t;
     UF(int size): t(size, -1){}
-    int root(int x){
-        return t[x] < 0 ? x : t[x] = root(t[x]);
-    }
-    int size(int x){
-        return -t[root(x)];
-    }
-    bool isSame(int x, int y){
-        return root(x) == root(y);
-    }
+    int root(int x){return t[x] < 0 ? x : t[x] = root(t[x]);}
+    int size(int x){return -t[root(x)];}
+    bool isSame(int x, int y){return root(x) == root(y);}
     bool unite(int x, int y){
         x = root(x), y = root(y);
         if(x != y){
             if(t[y] < t[x]){
-                swap(x, y)
-            ;}
+                swap(x, y);
+            }
             t[x] += t[y], t[y] = x;
         }
         return x != y;
     }
 };
-template<typename T>
-struct Segtree{
-    int n;
-    T op;
-    vector<T> elm;
-    function<T(T, T)> f;
-    Segtree(int n, T init, function<T(T, T)> f, T op = T()) :
-        n(n),
-        op(op),
-        elm(2 * n, init),
-        f(f)
-    {
-        for(int i = n - 1; i >= 1; --i)
-            elm[i] = f(elm[2 * i], elm[2 * i + 1]);
-    }
-    Segtree(int n, vector<T> init, function<T(T, T)> f, T op = T()) :
-        n(n),
-        op(op),
-        elm(2 * n),
-        f(f)
-    {
-        for(int i = 0; i < n; ++i)
-            elm[i + n] = init[i];
-        for(int i = n - 1; i >= 1; --i)
-            elm[i] = f(elm[2 * i], elm[2 * i + 1]);
-    }
-    void set(int x, T val){
-        x += n;
-        elm[x] = val;
-        while(x >>= 1)
-            elm[x] = f(elm[2 * x], elm[2 * x + 1]);
-    }
-    void update(int x, T val){
-        x += n;
-        elm[x] = f(val, elm[x]);
-        while(x >>= 1)
-            elm[x] = f(elm[2 * x], elm[2 * x + 1]);
-    }
-    T get(int x, int y) const{
-        T l = op, r = op;
-        for(x += n, y += n - 1; x <= y; x >>= 1, y >>= 1){
-            if(x & 1)
-                l = f(l, elm[x++]);
-            if(!(y & 1))
-                r = f(elm[y--], r);
-        }
-        return f(l, r);
-    }
-};
-int a, b, c, k, n, m, l, r, x, y, h, w, res = 0, sum = 0, mx = -INF, mn = INF;
+int n, k, a, b, l, r, tmp, res = 0;
 string s, t;
 main(){
-    INCANT;
-    in();
-
-    print();
+	INCANT;
+	in(n, k);
+	n *= 2;
+	int connected[n], dp[n][n] = {}, sum[n + 1] = {}, cnt[n + 1] = {1};
+	rep(i, n){
+		connected[i] = -1;
+	}
+	rep(i, k){
+		in(a, b);
+		a--;
+		b--;
+		connected[a] = b;
+		connected[b] = a;
+	}
+	rep(i, n){
+		sum[i + 1] = sum[i];
+		if(!(connected[i] + 1)){
+			sum[i + 1]++;
+		}
+	}
+	rep(i, 1, n + 1){
+		i++;
+		cnt[i] = (cnt[i - 2] * (i - 1)) % MOD;
+	}
+	rep(i, n){
+		rep(j, n - i){
+			l = j, r = j + i;
+			bool flag = true;
+			rep(k, l, r + 1){
+				if(connected[k] + 1 && (connected[k] < l || r < connected[k])){
+					flag = false;
+				}
+			}
+			if(flag){
+				int free = sum[r + 1] - sum[l];
+				if(!(free % 2)){
+					dp[l][r] = cnt[free];
+					rep(k, l, r){
+						dp[l][r] -= dp[l][k] * cnt[sum[r + 1] - sum[k + 1]];
+						dp[l][r] %= MOD;
+					}
+					res += dp[l][r] * cnt[sum[n] - free];
+					res %= MOD;
+				}
+			}
+		}
+	}
+	print((res + MOD) % MOD);
 }
