@@ -1,20 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define INCANT cin.tie(0), ios::sync_with_stdio(false), cout << fixed << setprecision(20);
+// おまじない
+#define INCANT cin.tie(0), cout.tie(0), ios::sync_with_stdio(false), cout << fixed << setprecision(20);
 #define int long long
-#define double long double
-#define pb push_back
-#define pf pop_front
-#define mp make_pair
-#define mt make_tuple
+// alias
 #define gcd __gcd
-#define fir first
-#define sec second
-#define sz(x) (x).size()
+#define pb push_back
 #define all(x) (x).begin(), (x).end()
-#define sortv(v) sort(all(v))
-#define sortg(v) sort(all(v), greater<int>())
-#define countv(v, c) count(all(v), c)
+template<typename T>
+bool chmax(T& a, T b){return (a = max(a, b)) == b;}
+template<typename T>
+bool chmin(T& a, T b){return (a = min(a, b)) == b;}
+template<class T>
+int lb(vector<T>& x,T n){return lower_bound(all(x) , n) - x.begin();}
+template<class T>
+int ub(vector<T>& x,T n){return upper_bound(all(x) , n) - x.begin();}
+// for
 #define _overload(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
 #define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
@@ -23,105 +24,85 @@ using namespace std;
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
-template<class T>
-int lb(vector<T>& x, T n){return lower_bound(all(x), n)- x.begin();}
-template<class T>
-int ub(vector<T>& x, T n){return upper_bound(all(x), n) - x.begin();}
+// 入力
 void in(){}
 template<typename F, typename... R>
 bool in(F& f, R&... r){
-    if(cin >> f){
-        in(r...);
-        return true;
-    }else{
-        return false;
-    }
+    if(cin >> f){in(r...);return true;}
+    else return false;
 }
-#define inv(x) each(i, x) in(i)
+// 出力
 #define out(x) cout << (x)
 #define space() cout << " "
 #define indent() cout << '\n'
 void print(){}
 template<typename F, typename... R>
 void print(F f, R... r){out(f), indent(), print(r...);}
-#define printv(x) each(i, x) out(i), space(); indent()
+// デバッグ出力
 #define debughead(x) cerr << "Line " << __LINE__ << ": " << #x << ": "
 #define debugout(x) cerr << (x) << " "
 #define debugindent() cerr << '\n'
 #define debug(x) debughead(x), debugout(x), debugindent()
+// 脳死
 #define YN(x) out((x) ? "YES" : "NO"), indent()
 #define Yn(x) out((x) ? "Yes" : "No"), indent()
 #define yn(x) out((x) ? "yes" : "no"), indent()
-const int INF = 1e18, MOD = 1e9 + 7, LIMIT = 100001, S_LIMIT = 101;
-const double EPS = 1e-15, PI = acos(-1);
-const int dx[] = {0, 0, 1, 0, -1, -1, 1, 1, -1}, dy[] = {0, -1, 0, 1, 0, -1, -1, 1, 1};
-const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-int g[S_LIMIT][S_LIMIT] = {};
-int modpow(int x, int n){return n < 2 ? x : modpow(x * x, n / 2) * (n % 2 ? x : 1) % MOD;}
-int modfact(int n){return n < 2 ? 1 : modfact(n - 1) * n % MOD;}
-int modcomb(int n, int r){return modfact(n) * modpow(modfact(r), MOD - 2) % MOD * modpow(modfact(n - r), MOD - 2) % MOD;}
-template<typename T>
-bool chmax(T& a, T b){return (a = max(a, b)) == b;}
-template<typename T>
-bool chmin(T& a, T b){return (a = min(a, b)) == b;}
+// const
+int INF = 1e18, MOD = 1e9 + 7;
+double EPS = 1e-15, PI = acos(-1);
+int dx[] = {0, 0, 1, 0, -1, -1, 1, 1, -1}, dy[] = {0, -1, 0, 1, 0, -1, -1, 1, 1};
+// 数学的な
 int lcm(int a, int b){return a / gcd(a, b) * b;}
-int faccntal(int a){return a < 2 ? 1 : faccntal(a - 1) * a;}
+int factorial(int a){return a < 2 ? 1 : factorial(a - 1) * a;}
 int summation(int a){return a < 1 ? 0 : (a * a + a) / 2;}
-int combination(int n, int r){
-    int res = 1;
-    rep(i, 1, r + 1){
-        res *= n--, res /= i;
-    }
-    return res;
+int combination(int n, int r){ int res = 1; rep(i, 1, r + 1){ res *= n--, res /= i; } return res; }
+bool isPrime(int n){ rep(i, 2, sqrt(n) + 1){ if(i > 3){ i++; } if(!(n % i)){ return false; } } return true; }
+vector<int> divisor(int n){ vector<int> ans; rep(i, 1, sqrt(n) + 1){ if(!(n % i)){ ans.pb(i); if(i * i < n){ ans.pb(n / i); } } } return ans; }
+map<int, int> factorization(int n){ map<int, int> ans; rep(i, 2, sqrt(n) + 1){ if(i > 3){ i++; } while(!(n%i)){ ans[i]++, n /= i; } } if(n > 1){ ans[n]++; } return ans; }
+// MOD int
+int extgcd(int a, int b, int &x, int &y){ int g = a; x = 1, y = 0; if(b){ g = extgcd(b, a % b, y, x); y -= a / b * x; } return g; }
+int invmod(int a, int m = MOD){ int x = 0, y = 0; extgcd(a, m, x, y); return (x + m) % m; }
+struct mint{
+    int _num;
+    mint(int x = 0) : _num(){ _num = x % MOD; if(_num < 0){ _num += MOD; } }
+    inline mint operator = (int x){ _num = x % MOD; if(_num < 0){ _num += MOD; } return *this; }
+    inline mint operator = (mint x){ _num = x._num; return *this; }
+    inline mint operator + (int x){ return mint(_num + x); }
+    inline mint operator + (mint x){ int a = _num + x._num; if(a >= MOD){ a -= MOD; } return mint{a}; }
+    inline mint operator += (int x){ _num += x; _num %= MOD; if(_num < 0){ _num += MOD; } return *this; }
+    inline mint operator += (mint x){ _num += x._num; if(_num >= MOD){ _num -= MOD; } return *this; }
+    inline mint operator ++ (){ _num++; if(_num == MOD){ _num = 0; } return *this; }
+    inline mint operator - (int x){ return mint(_num - x); }
+    inline mint operator - (mint x){ int a = _num - x._num; if(a < 0){ a += MOD; } return mint{a}; }
+    inline mint operator -= (int x){ _num -= x; _num %= MOD; if(_num < 0){ _num += MOD; } return *this; }
+    inline mint operator -= (mint x){ _num -= x._num; if(_num < 0){ _num += MOD; } return *this; }
+    inline mint operator -- (){ _num--; if(_num == -1){ _num = MOD - 1; } return *this; }
+    inline mint operator * (int x){ return mint(_num * (x % MOD)); }
+    inline mint operator * (mint x){ return mint{_num * x._num % MOD}; }
+    inline mint operator *= (int x){ _num *= mint(x); _num %= MOD; return *this; }
+    inline mint operator *= (mint x){ _num *= x._num; _num %= MOD; return *this; }
+    inline mint operator / (int x){ return mint(_num * invmod(mint(x), MOD)); }
+    inline mint operator / (mint x){ return mint{_num * invmod(x._num, MOD) % MOD}; }
+    inline mint operator /= (int x){ _num *= invmod(mint(x), MOD); _num %= MOD; return *this; }
+    inline mint operator /= (mint x){ _num *= invmod(x._num, MOD); _num %= MOD; return *this; }
+    inline mint pow(int x){ mint ans = 1, cnt = *this; for(int i = 1; i < x + 1; i *= 2){ if(x & i){ ans *= cnt; x ^= i; } cnt *= cnt; } return ans; }
+    inline operator int() { return _num; }
+};
+vector<mint> fac(1, 1), inv(1, 1);
+void reserve(int a){
+    if(fac.size() >= a) return;
+    if(a < fac.size() * 2) a = fac.size() * 2;
+    if(a >= MOD) a = MOD;
+    while(fac.size() < a) fac.push_back(fac.back() * (int)(fac.size()));
+    inv.resize(fac.size());
+    inv.back() = mint(1) / fac.back();
+    for(int i = inv.size() - 1; !inv[i - 1]; i--) inv[i - 1] = inv[i] * i;
 }
-bool isPrime(int n){
-    rep(i, 2, sqrt(n) + 1){
-        if(i > 3){
-            i++;
-        }
-        if(!(n % i)){
-            return false;
-        }
-    }
-    return true;
-}
-void warshall(int n){
-    rep(i, n){
-        rep(j, n){
-            rep(k, n){
-                chmin(g[j][k], g[j][i] + g[i][k]);
-            }
-        }
-    }
-}
-vector<int> divisor(int n){
-    vector<int> ans;
-    rep(i, 1, sqrt(n) + 1){
-        if(!(n % i)){
-            ans.pb(i);
-            if(i * i < n){
-                ans.pb(n / i);
-            }
-        }
-    }
-    return ans;
-}
-map<int, int> faccntzation(int n){
-    map<int, int> ans;
-    rep(i, 2, sqrt(n) + 1){
-        if(i > 3){
-            i++;
-        }
-        while(!(n%i)){
-            ans[i]++, n /= i;
-        }
-    }
-    if(n > 1){
-        ans[n]++;
-    }
-    return ans;
-}
+mint fact(int n){ if(n < 0) return 0; reserve(n + 1); return fac[n]; }
+mint perm(int n, int r){ if(r < 0 || n < r) return 0; reserve(n + 1); return fac[n] * inv[n - r]; }
+mint comb(int n, int r){ if(r < 0 || n < r) return 0; reserve(n + 1); return fac[n] * inv[r] * inv[n - r]; }
+mint mcomb(int n, int r){ return comb(n + r - 1, n - 1); } // r個をn部屋に分ける
+// UnionFind
 struct UF{
     vector<int> t;
     UF(int size): t(size, -1){}
@@ -139,55 +120,10 @@ struct UF{
         return x != y;
     }
 };
-int n, k, a, b, l, r, tmp, res = 0;
-string s, t;
+// main
 main(){
-	INCANT;
-	in(n, k);
-	n *= 2;
-	int connected[n], dp[n][n] = {}, sum[n + 1] = {}, cnt[n + 1] = {1};
-	rep(i, n){
-		connected[i] = -1;
-	}
-	rep(i, k){
-		in(a, b);
-		a--;
-		b--;
-		connected[a] = b;
-		connected[b] = a;
-	}
-	rep(i, n){
-		sum[i + 1] = sum[i];
-		if(!(connected[i] + 1)){
-			sum[i + 1]++;
-		}
-	}
-	rep(i, 1, n + 1){
-		i++;
-		cnt[i] = (cnt[i - 2] * (i - 1)) % MOD;
-	}
-	rep(i, n){
-		rep(j, n - i){
-			l = j, r = j + i;
-			bool flag = true;
-			rep(k, l, r + 1){
-				if(connected[k] + 1 && (connected[k] < l || r < connected[k])){
-					flag = false;
-				}
-			}
-			if(flag){
-				int free = sum[r + 1] - sum[l];
-				if(!(free % 2)){
-					dp[l][r] = cnt[free];
-					rep(k, l, r){
-						dp[l][r] -= dp[l][k] * cnt[sum[r + 1] - sum[k + 1]];
-						dp[l][r] %= MOD;
-					}
-					res += dp[l][r] * cnt[sum[n] - free];
-					res %= MOD;
-				}
-			}
-		}
-	}
-	print((res + MOD) % MOD);
+    INCANT;
+    int n, res = 0;
+
+    print(res);
 }
