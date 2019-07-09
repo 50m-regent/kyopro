@@ -123,7 +123,9 @@ struct UF{
 // main
 main(){
     INCANT;
-    int n, res = 0;
-
-    print(res);
+    int n, m, res = 0;
+    in(n, m);
+    res += min(n, m / 2);
+    m -= 2 * res;
+    print(res + m / 4);
 }
