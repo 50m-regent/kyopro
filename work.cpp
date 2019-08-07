@@ -123,48 +123,20 @@ struct UF{
 // main
 main(){
     INCANT;
-    int n, k, res = 0, mx = 0;
+    int n, k, res = 0;
     in(n, k);
-    int a[n] = {};
+    int a[n];
+    int sum = 0;
     rep(i, n){
         in(a[i]);
+        sum += a[i];
     }
-    rev(i, 1000, 1){
-        vector<int> fir = {0}, sec = {0};
-        bool flag =false;
+    vector<int> v = divisor(sum);
+    each(i, v){
+        int diff = 2 * k;
         rep(j, n){
-            if( abs( -1 * (a[j] % i) ) > k || abs( i - a[j] % i) > k ){
-                flag = true;
-                break;
-            }
-            fir.pb(-1 * (a[j] % i));
-            sec.pb(i - a[j] % i);
-        }
-        if(flag){
-            continue;
-        }
-        
-        set<int> dp[n + 1]; //j番目までみてあまりがoにできるか
-        dp[0] = {0};
-        rep(j, 1, n + 1){
-            each(o, dp[j - 1]){
-                dp[j].insert((o + fir[j]));
-                dp[j].insert((o + sec[j]));
-            }
-        }
-
-        if(i == 2){
-            rep(q, n + 1){
-                each(p, dp[q]){
-                    debug(p);
-                }
-            }
-            
-        }
-
-        if(find(all(dp[n]), 0) != dp[n].end()) {
-           print(i);
-           return 0;
+            diff -= abs(a[j] % i)
         }
     }
+    print(res);
 }
