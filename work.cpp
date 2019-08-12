@@ -6,6 +6,7 @@ using namespace std;
 // alias
 #define gcd __gcd
 #define pb push_back
+#define mp make_pair
 #define all(x) (x).begin(), (x).end()
 template<typename T>
 bool chmax(T& a, T b){return (a = max(a, b)) == b;}
@@ -123,20 +124,31 @@ struct UF{
 // main
 main(){
     INCANT;
-    int n, k, res = 0;
-    in(n, k);
-    int a[n];
-    int sum = 0;
-    rep(i, n){
-        in(a[i]);
-        sum += a[i];
+    int n, m, p, res = 0;
+    in(n, m, p);
+    int a[m], b[m], c[m], d[n + 1] = {};
+    rep(i, 2, n + 1){
+        d[i] = -INF;
     }
-    vector<int> v = divisor(sum);
-    each(i, v){
-        int diff = 2 * k;
-        rep(j, n){
-            diff -= abs(a[j] % i)
+    rep(i, m){
+        in(a[i], b[i], c[i]);
+        c[i] -= p;
+    }
+    rep(i, m){
+        rep(j, m){
+            chmax(d[b[j]], d[a[j]] + c[j]);
         }
     }
-    print(res);
+    int tmp = d[n];
+    rep(i, m){
+        rep(j, m){
+            chmax(d[b[j]], d[a[j]] + c[j]);
+        }
+    }
+    if(tmp < d[n]){
+        print(-1);
+    }else{
+        print(max(0LL, tmp));
+    }
 }
+
