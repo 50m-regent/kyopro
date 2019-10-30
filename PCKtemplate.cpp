@@ -1,47 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-typedef unsigned long long ull;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef vector<vvll> vvvll;
-typedef vector<string> vstr;
-typedef pair<ll, ll> pll;
-typedef vector<pll> vp;
-typedef map<ll, ll> mll;
-typedef map<string, ll> mstrll;
-#define pb push_back
-#define eb emplace_back
-#define mp make_pair
-#define fir first
-#define sec second
-#define maxs(x, y) (x = max(x, y))
-#define mins(x, y) (x = min(x, y))
-#define all(x) begin(x), end(x)
-#define rall(x) rbegin(x), rend(x)
-#define _overload3(_1, _2, _3, name, ...) name
+#define INCANT cin.tie(0), cout.tie(0), ios::sync_with_stdio(false), cout << fixed << setprecision(20);
+#define int long long
+#define gcd __gcd
+#define all(x) (x).begin(), (x).end()
+const int INF = 1e18, MOD = 1e9 + 7;
+template<class T>
+bool chmax(T& a, T b){return (a = max(a, b)) == b;}
+template<class T>
+bool chmin(T& a, T b){return (a = min(a, b)) == b;}
+#define _overload(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for(ll i = ll(a); i < ll(b); i++)
-#define rep(...) _overload3(__VA_ARGS__, repi, _rep,)(__VA_ARGS__)
+#define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
+#define rep(...) _overload(__VA_ARGS__, repi, _rep)(__VA_ARGS__)
+#define _rev(i, n) revi(i, n, 0)
+#define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
+#define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
-#define out(x) cout << (x)
-#define indent() cout << '\n'
-#define print(x) cout << (x) << '\n'
-#define debug(x) cerr << #x << ": " << (x) << '\n'
-ll gcd(ll a, ll b){return b != 0 ? gcd(b, a % b) : a;}
-ll lcm(ll a, ll b){return a / gcd(a, b) * b;}
-const ll INF = 1e16;
-const ll MOD = 1e9 + 7;
-ll a, b, c, n, m, x, y, z, w, h, ans, cnt, mx, mn;
-string s, t;
-ll dx[] = {-1, 0, 1, 0}, dy[] = {0, -1, 0, 1};
-//vll dx = {-1, 0, 1, -1, 1, -1, 0, 1}, dy = {-1, -1, -1, 0, 0, 1, 1, 1};
-string alphabet = "abcdefghijklmnopqrstuvwxyz";
+signed main() {
+    INCANT;
+    
+    cin>>;
 
-signed main(){
-    cin.tie(0);
-    ios::sync_with_stdio(false);
-    while(cin >> ){
-        print();
-    }
+    cout<<<<endl;
 }

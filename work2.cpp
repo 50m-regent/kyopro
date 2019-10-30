@@ -1,48 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
-main(){
-    int n, res = 0, last = 0;
-    string s, t;
-    cin >> s >> t;
-    map<char, bool> flag;
-    map<char, vector<int>> syutu;
-    for(int i = 0; i < s.size(); i++){
-        char c = s[i];
-        syutu[c].push_back(i);
-        flag[c] = true;
+#define INCANT cin.tie(0), cout.tie(0), ios::sync_with_stdio(false), cout << fixed << setprecision(20);
+#define int long long
+#define gcd __gcd
+#define all(x) (x).begin(), (x).end()
+template<class T>
+bool chmax(T& a, T b){return (a = max(a, b)) == b;}
+template<class T>
+bool chmin(T& a, T b){return (a = min(a, b)) == b;}
+#define _overload(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
+#define rep(...) _overload(__VA_ARGS__, repi, _rep)(__VA_ARGS__)
+#define _rev(i, n) revi(i, n, 0)
+#define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
+#define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
+#define each(i, n) for(auto&& i: n)
+int INF = 1e18, MOD = 1e9 + 7;
+vector<int> g[666];
+int n, m, a, b, c = 0;
+double cnt = 0.0;
+int mx = -INF;
+
+void dfs(int now, int dep){
+    if(now == n - 1){
+        cnt += dep;
+        chmax(mx, dep);
     }
-
-    for(auto& c:t){
-        if(!flag[c]){
-            cout << -1;
-            return 0;
-        }
+    each(p, g[now]){
+        c++;
+        dfs(p, dep + 1);
     }
+}
 
-    res += syutu[t[0]][0] + 1;
-    last = syutu[t[0]][0];
-
-    for(int i = 1; i < t.size(); i++){
-        char c = t[i];
-        if(syutu[c][syutu[c].size() - 1] < last){
-            res += s.size() - last;
-            last = 0;
-        }
-
-        int left = 0, right = syutu[c].size() - 1, mid;
-
-        while(abs(left - right) > 1){
-            mid = (left + right) / 2;
-            if(syutu[c][mid] > last){
-                right = mid;
-            }else{
-                left = mid;
-            }
-        }
-
-        int j = syutu[c][right];
-        res += j - last;
-        last = j;
+signed main() {
+    INCANT;
+    
+    cin>>n>>m;
+    rep(i, m){
+        cin>>a>>b;
+        a--, b--;
+        g[a].push_back(b);
     }
-    cout << res;
+    dfs(0, 0);
+    cout<<(cnt - mx) / double(c)<<endl;
 }

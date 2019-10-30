@@ -1,3 +1,18 @@
 {
-    "python.pythonPath": "/Users/len/.conda/envs/AIsing/bin/python"
+    "python.pythonPath": "/Users/len/.conda/envs/AIsing/bin/python",
+    "files.associations": {
+        "vector": "cpp",
+        "iosfwd": "cpp",
+        "iterator": "cpp",
+        "complex": "cpp",
+        "memory": "cpp",
+        "utility": "cpp",
+        "iostream": "cpp",
+        "queue": "cpp",
+        "deque": "cpp",
+        "random": "cpp",
+        "map": "cpp",
+        "ostream": "cpp",
+        "array": "cpp"
+    }
 }
