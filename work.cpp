@@ -16,33 +16,35 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
-const int INF = 1e18, MOD = 1e9 + 7;
+const int INF = 1e18, MOD = 998244353;
+int modpow(int a, int n){
+    if(n < 1) return 1;
+    return modpow(a * a % MOD, n / 2) * ((n % 2) ? a : 1) % MOD;
+}
+int modinv(int a){
+    return modpow(a, MOD - 2);
+}
+int modfact(int a){
+    if(a < 2) return 1;
+    return a * modfact(a - 1) % MOD;
+}
 signed main() {
     INCANT;
-    int n, m, s, t;
-    double mn = INF, sum, mx;
-    vector<int> g[666];
-    double dp[666][666] = {};
-    cin>>n>>m;
-    rep(i, m){
-        cin>>s>>t;
-        s--, t--;
-        g[s].push_back(t);
+    int n, fac, inv[11111111], res, tmp = 0, cnt = 1;
+    cin>>n;
+    res = modpow(3, n);
+    fac = modfact(n);
+    inv[n] = modinv(fac);
+    rev(i, n){
+        inv[i] = inv[i + 1] * (i + 1);
+        inv[i] %= MOD;
     }
-    rep(i, n){
-        dp[i][n - 1] = 0;
-        rev(j, n - 1){
-            sum = mx = 0.0;
-            each(p, g[j]){
-                sum += dp[i][p];
-                chmax(mx, dp[i][p]);
-            }
-            dp[i][j] = sum / g[j].size() + 1;
-            if(i == j && g[j].size() > 1){
-                dp[i][j] = (sum - mx) / (g[j].size() - 1) + 1;
-            }
-        }
-        chmin(mn, dp[i][0]);
+    rep(i, n / 2){
+        tmp += inv[i] * inv[n - i] % MOD * cnt % MOD;
+        tmp %= MOD;
+        cnt *= 2;
+        cnt %= MOD;
     }
-    cout<<mn;
+    tmp = tmp * 2 * fac % MOD;
+    cout<<(res - tmp + MOD) % MOD<<endl;
 }

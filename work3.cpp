@@ -16,15 +16,25 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
-int INF = 1e18, MOD = 1e9 + 7;
+const int INF = 1e18, MOD = 1e9 + 7;
 signed main() {
     INCANT;
-    double a, b, x, res = 0;
-    cin>>a>>b>>x;
-    double o = 2 * (a * b - x / a) / a;
-    double p = a * a + o * o;
-    res = asin(2 * (a * b - x / a) / a / p);
-
-    cout << 2 * (a * b - x / a) / a / p;
-    cout<<res * 180 / acos(-1)<<endl;
+    int n, d[222222], sum[222222] = {}, res = -INF;
+    bool flag = false;
+    map<int, vector<int>> m;
+    cin>>n;
+    rep(i, n){
+        cin>>d[i];
+        sum[i + 1] = sum[i] + d[i];
+        m[sum[i]].push_back(i - 1);
+    }
+    m[sum[n]].push_back(n - 1);
+    each(p, m){
+        if(p.second.size() == 1) continue;
+        flag = true;
+        sort(all(p.second));
+        chmax(res, p.second[p.second.size() - 1] - p.second[0]);
+    }
+    if(flag) cout<<res<<endl;
+    else cout<<0<<endl;
 }

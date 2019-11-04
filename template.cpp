@@ -19,7 +19,7 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 const int INF = 1e18, MOD = 1e9 + 7;
 signed main() {
     INCANT;
-    int n, res = 0;
+    int n;
     cin>>;
 
     cout<<<<endl;

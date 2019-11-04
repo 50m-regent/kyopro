@@ -16,32 +16,30 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 #define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
-int INF = 1e18, MOD = 1e9 + 7;
-vector<int> g[666];
-int n, m, a, b, c = 0;
-double cnt = 0.0;
-int mx = -INF;
-
-void dfs(int now, int dep){
-    if(now == n - 1){
-        cnt += dep;
-        chmax(mx, dep);
+const int INF = 1e18, MOD = 1e9 + 7;
+int g[111111];
+bool used[111111];
+int search(int start, int now, int depth=0){
+    if(used[now]) {
+        if(g[now] == start){
+            return depth + 1;
+        }else{
+            return 0;
+        }
     }
-    each(p, g[now]){
-        c++;
-        dfs(p, dep + 1);
-    }
+    used[now] = true;
+    return search(start, g[now], depth + 1);
 }
-
 signed main() {
     INCANT;
-    
-    cin>>n>>m;
-    rep(i, m){
-        cin>>a>>b;
-        a--, b--;
-        g[a].push_back(b);
+    int n, a, res = 0;
+    cin>>n;
+    rep(i, n){
+        cin>>a;
+        g[i] = (i + a) % n;
     }
-    dfs(0, 0);
-    cout<<(cnt - mx) / double(c)<<endl;
+    rep(i, n){
+        res += search(i, i);
+    }
+    cout<<res<<endl;
 }
