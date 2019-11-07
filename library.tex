@@ -1,0 +1,310 @@
+\documentclass{jsarticle}
+\usepackage{listings}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+\begin{document}
+\section*{りーぜんと}
+\subsection*{テンプレ}
+\begin{lstlisting}[caption=テンプレ]
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int INF = 1e18;
+const int MOD = 1e9 + 7;
+\end{lstlisting}
+\begin{lstlisting}[caption=ループ]
+#define _overload(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for(int i = (int)(a); i < (int)(b); i++)
+#define rep(...) _overload(__VA_ARGS__, repi, _rep)(__VA_ARGS__)
+#define _rev(i, n) revi(i, n, 0)
+#define revi(i, a, b) for(int i = (int)(a - 1); i >= (int)(b); i--)
+#define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
+#define each(i, n) for(auto&& i: n)
+\end{lstlisting}
+
+\subsection*{データ構造}
+\begin{lstlisting}[caption=UnionFind]
+struct UnionFind {
+    vector<int> t;
+    UnionFind(int size): t(size, -1) {}
+    int root(int x) {
+        return t[x] < 0 ? x : t[x] = root(t[x]);
+    }
+    int size(int x) {
+        return -t[root(x)];
+    }
+    bool isSame(int x, int y) {
+        return root(x) == root(y);
+    }
+    bool unite(int x, int y) {
+        x = root(x), y = root(y);
+        if(x != y) {
+            if(t[y] < t[x]) swap(x, y);
+            t[x] += t[y], t[y] = x;
+        }
+        return x != y;
+    }
+};
+\end{lstlisting}
+\begin{lstlisting}[caption=セグ木]
+struct SegmentTree {
+  int n = 1;
+  vector<int> t;
+  SegmentTree(vector<int> v) {
+      while(n < v.size()) n *= 2;
+      t.resize(2 * n - 1, INF);
+      rep(i, v.size()) t[i + n - 1] = v[i];
+      rev(i, n - 1) t[i] = min(t[2 * i + 1], t[2 * i + 2]); // 区間最小
+  }
+  void update(int x, int val) {
+      x += n - 1;
+      t[x] = val;
+      while(x > 0){
+          x--; x /= 2;
+          t[x] = min(t[2 * x + 1], t[2 * x + 2]); // 区間最小
+      }
+  }
+  int query(int a, int b, int now = 0, int l = 0, int r = -1) {
+      if(r < 0) r = n;
+      if(r <= a || b <= l) return INF; // minの単位元
+      if(a <= l && r <= b) return t[now];
+      int c1 = query(a, b, 2 * now + 1, l, (l + r) / 2);
+      int c2 = query(a, b, 2 * now + 2, (l + r) / 2, r);
+      return min(c1, c2);
+  }
+};
+\end{lstlisting}
+
+\subsection*{数学}
+\begin{lstlisting}[caption=素因数分解]
+map<int, int> factorization(int n) {
+    map<int, int> res;
+    rep(i, 2, sqrt(n) + 1) {
+        if(i > 3) i++;
+        while(!(n%i)) {
+            res[i]++;
+            n /= i;
+        }
+    }
+    if(n > 1) {
+        res[n]++;
+    }
+    return res;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption=約数列挙]
+vector<int> divisor(int n) {
+    vector<int> res;
+    rep(i, 1, sqrt(n) + 1) {
+        if(!(n % i)) {
+            res.push_back(i);
+            if(i * i < n) res.push_back(n / i);
+        }
+    }
+    return res;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption=最小公倍数]
+int lcm(int a, int b) {return a / gcd(a, b) * b;}
+\end{lstlisting}
+\begin{lstlisting}[caption=累乗]
+int factorial(int a) {return a < 2 ? 1 : factorial(a - 1) * a;}
+\end{lstlisting}
+\begin{lstlisting}[caption=総和]
+int summation(int a) {return a < 1 ? 0 : (a * a + a) / 2;}
+\end{lstlisting}
+\begin{lstlisting}[caption=組み合わせ]
+int comb(int n, int r) {
+  int res = 1;
+  rep(i, 1, r + 1) {
+    res *= n--;
+    res /= i;
+  }
+  return res;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption=素数判定]
+bool isPrime(int n) {
+  rep(i, 2, sqrt(n) + 1) {
+    if(i > 3) i++;
+    if(!(n % i)) return false;
+  }
+  return true;
+}
+\end{lstlisting}
+
+\subsection*{bound}
+\begin{lstlisting}[caption=bound]
+template<class T>
+int lb(vector<T>& x,T n){return lower_bound(all(x) , n) - x.begin();}
+template<class T>
+int ub(vector<T>& x,T n){return upper_bound(all(x) , n) - x.begin();}
+\end{lstlisting}
+
+\section*{やの}
+\subsection*{テンプレ}
+\begin{lstlisting}[caption=テンプレ]
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<string>
+#include<map>
+#include<set>
+#include<stack>
+#include<queue>
+#include<math.h>
+using namespace std;
+#define int long long
+#define INF 1000000000
+#define LLINF 9223372036854775807
+#define mod 1000000007
+\end{lstlisting}
+\begin{lstlisting}[caption=alias]
+typedef vector<int> VI;
+typedef pair<int, int> pii;
+typedef priority_queue<int> PQ;
+#define SORT(c) sort((c).begin(),(c).end())
+#define rSORT(c) sort((c).rbegin(),(c).rend())
+\end{lstlisting}
+\begin{lstlisting}[caption=ループ]
+#define fore(i,a) for(auto &i:a)
+#define REP(i,n) for(int i=0;i<n;i++)
+#define eREP(i,n) for(int i=0;i<=n;i++)
+#define FOR(i,a,b) for(int i=(a);i<(b);++i)
+#define eFOR(i,a,b) for(int i=(a);i<=(b);++i)
+\end{lstlisting}
+
+\subsection*{データ構造}
+\begin{lstlisting}[caption=UnionFind]
+class UnionFind {
+  public:
+    vector<int> Parent;   
+    UnionFind(int N) {
+      Parent = vector<int>(N, -1);
+    }
+    int root(int A) {
+      if (Parent[A] < 0) return A;
+      return Parent[A] = root(Parent[A]);
+    }
+    int size(int A) {return -Parent[root(A)];}
+     
+    bool connect(int A, int B) {
+      A = root(A);
+      B = root(B);
+      if (A == B) return false;
+     
+      if (size(A) < size(B)) swap(A, B);
+     
+      Parent[A] += Parent[B];
+      Parent[B] = A;
+     
+      return true;
+    }
+};
+\end{lstlisting}
+\begin{lstlisting}[caption=セグ木]
+struct segtree {
+  public:
+    const int SIZE = 1 << 18;
+    VI seg, lazy;
+    misegtree() :seg(SIZE * 2, INF), lazy(SIZE * 2, INF) {}
+    void lazy_evaluate(int k, int l, int r) {
+      if (lazy[k] != 0) {
+        //seg[k] += lazy[k];
+        seg[k] = min(seg[k], lazy[k]);
+        if (r - l > 1) {
+          //lazy[k * 2 + 1] += lazy[k];
+          //lazy[k * 2 + 2] += lazy[k];
+          //lazy[k * 2 + 1] = min(lazy[k * 2 + 1], lazy[k]);
+          //lazy[k * 2 + 2] = min(lazy[k * 2 + 2], lazy[k]);
+          //lazy[k * 2 + 1] = max(lazy[k * 2 + 1], lazy[k]);
+          //lazy[k * 2 + 2] = max(lazy[k * 2 + 2], lazy[k]);
+        }
+        lazy[k] = LLINF;
+      }
+    }
+    void update(int a, int b, int k, int l, int r, int x) {
+      lazy_evaluate(k, l, r);
+      if (r <= a || b <= l)return;
+      if (a <= l && r <= b) {
+        //lazy[k] += x;
+        //lazy[k] = min(lazy[k], x);
+        //lazy[k] = max(lazy[k], x);
+        lazy_evaluate(k, l, r);
+      } else {
+        update(a, b, k * 2 + 1, l, (l + r) / 2, x);
+        update(a, b, k * 2 + 2, (l + r) / 2, r, x);
+        //seg[k] = seg[k * 2 + 1] + seg[k * 2 + 2];
+        //seg[k] = min(seg[k * 2 + 1], seg[k * 2 + 2]);
+        //seg[k] = max(seg[k * 2 + 1], seg[k * 2 + 2]);
+      }
+    }
+    int query(int a, int b, int k, int l, int r) {
+      lazy_evaluate(k, l, r);
+      if (r <= a || b <= l)return LLINF;
+      if (a <= l && r <= b)return seg[k];
+      int x = query(a, b, k * 2 + 1, l, (l + r) / 2);
+      int y = query(a, b, k * 2 + 2, (l + r) / 2, r);
+      //return x + y;
+      //return min(x, y);
+      //return max(x, y);
+    }
+    void update(int a, int b, int x) { update(a, b, 0, 0, SIZE, x); }
+    int query(int a, int b) {
+      return query(a, b, 0, 0, SIZE);
+    }
+};
+\end{lstlisting}
+
+\subsection*{グラフ}
+\begin{lstlisting}[caption=ダイクストラ]
+const int MAX_N = 100;
+int G[100][100];
+int N;
+VI dist(110);
+  
+void dikstra(int s) {
+  priority_queue<pii, vector<pii>, greater<pii> >que;
+  dist[s] = 0;
+  que.push(pii(0, s));
+  while (!que.empty()) {
+    pii p = que.top();
+    que.pop();
+    int v = p.second;
+    if (dist[v] < p.first) continue;
+    REP(i, N) {
+      if (G[v][i] == LLINF) continue;
+      if (dist[i] > dist[v] + G[v][i]) {
+        dist[i] = dist[v] + G[v][i];
+        que.push(pii(dist[v], i));
+      }
+    }
+  }
+}
+\end{lstlisting}
+
+\subsection*{bound}
+\begin{lstlisting}[caption=bound]
+#define LB(x,a) lower_bound((x).begin(),(x).end(),(a))
+#define UB(x,a) upper_bound((x).begin(),(x).end(),(a))
+\end{lstlisting}
+
+\end{document}
