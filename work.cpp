@@ -17,13 +17,40 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
 const int INF = 1e18, MOD = 1e9 + 7;
-int modpow(int x, int n) {
-  if(n < 2) return x;
-  return modpow(x * x % MOD, n / 2) * (n % 2 ? x : 1) % MOD;
-}
+struct UnionFind {
+    vector<int> t;
+    UnionFind(int size): t(size, -1) {}
+    int root(int x) {
+        return t[x] < 0 ? x : t[x] = root(t[x]);
+    }
+    int size(int x) {
+        return -t[root(x)];
+    }
+    bool isSame(int x, int y) {
+        return root(x) == root(y);
+    }
+    bool unite(int x, int y) {
+        x = root(x), y = root(y);
+        if(x != y) {
+            if(t[y] < t[x]) swap(x, y);
+            t[x] += t[y], t[y] = x;
+        }
+        return x != y;
+    }
+};
 signed main() {
     INCANT;
-    int n, r;
-    cin>>n>>r;
-    cout<<modpow(n, r);
+    int n, m, a, b, c;
+    set<int> s;
+    cin>>n>>m;
+    UnionFind uf(n);
+    rep(i, m) {
+        cin>>a>>b>>c;
+        a--, b--;
+        uf.unite(a, b);
+    }
+    rep(i, n) {
+        s.insert(uf.root(i));
+    }
+    cout<<s.size()<<endl;
 }
