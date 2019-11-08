@@ -92,6 +92,27 @@ struct SegmentTree {
   }
 };
 \end{lstlisting}
+\begin{lstlisting}[caption=回文]
+// 最長回文 v[i]がi文字目中心の差最大値
+vector<int> manacher(string &s) {
+    vector<int> radius(s.size());
+    int i = 0, j = 0;
+    while(i < s.size()) {
+        while(i - j >= 0 && i + j < s.size() && s[i - j] == s[i + j]) {
+            ++j;
+        }
+        radius[i] = j;
+        int k = 1;
+        while(i - k >= 0 && i + k < s.size() && k + radius[i - k] < j) {
+            radius[i + k] = radius[i - k];
+            ++k;
+        }
+        i += k;
+        j -= k;
+    }
+    return radius;
+}
+\end{lstlisting}
 
 \subsection*{数学}
 \begin{lstlisting}[caption=素因数分解]
@@ -157,6 +178,35 @@ template<class T>
 int lb(vector<T>& x,T n){return lower_bound(all(x) , n) - x.begin();}
 template<class T>
 int ub(vector<T>& x,T n){return upper_bound(all(x) , n) - x.begin();}
+\end{lstlisting}
+
+\subsection*{MOD}
+\begin{lstlisting}[caption=二分累乗とか]
+int extgcd(int a, int b, int &x, int &y) {
+  int g = a;
+  x = 1, y = 0;
+  if(b) {
+    g = extgcd(b, a % b, y, x);
+    y -= a / b * x;
+  }
+  return g;
+}
+  
+int invmod(int a, int m = MOD) {
+  int x = 0, y = 0;
+  extgcd(a, m, x, y);
+  return (x + m) % m;
+}
+
+int modpow(int a, int n){
+  if(n < 1) return 1;
+  return modpow(a * a % MOD, n / 2) * ((n % 2) ? a : 1) % MOD;
+}
+
+int modfact(int a){
+  if(a < 2) return 1;
+  return a * modfact(a - 1) % MOD;
+}
 \end{lstlisting}
 
 \section*{やの}
@@ -300,11 +350,70 @@ void dikstra(int s) {
   }
 }
 \end{lstlisting}
+\begin{lstlisting}[caption=強結合なんとか]
+const int MAX_N=10000;
+vector<VI> g1(MAX_N);
+vector<VI> g2(MAX_N);
+VI flag(MAX_N);
+int fcnt = 0;
+int gcnt = 0;
+vector<bool>vis(MAX_N, false);
+VI group(MAX_N);
+  
+void dfs(int v) {
+  vis[v] = true;
+  for (int w : g1[v]) {
+    if (!vis[w])dfs(w);
+  }
+  flag[fcnt] = v;
+  //cout << fcnt << " " << v << endl;
+  fcnt++;
+}
+  
+void rdfs(int v) {
+  vis[v] = false;
+  group[v] = gcnt;
+  //cout << v << " " << gcnt << endl;
+  for (int w : g2[v]) {
+    if (vis[w])rdfs(w);
+  }
+}
+\end{lstlisting}
 
 \subsection*{bound}
 \begin{lstlisting}[caption=bound]
 #define LB(x,a) lower_bound((x).begin(),(x).end(),(a))
 #define UB(x,a) upper_bound((x).begin(),(x).end(),(a))
+\end{lstlisting}
+
+\subsection*{MOD}
+\begin{lstlisting}[caption=MOD逆元]
+int modpow(int a, int p) {
+  if (p == 0) return 1;
+  if (p % 2 == 0) {
+    int halfP = p / 2;
+    int half = modpow(a, halfP);
+   
+    return half * half % mod;
+  } else {
+    return a * modpow(a, p - 1) % mod;
+  }
+}
+   
+int comb(int a, int b) {
+  if (b > a - b) return comb(a, a - b);
+  int ansMul = 1;
+  int ansDiv = 1;
+  for (int i = 0; i < b; i++) {
+    ansMul *= (a - i);
+    ansDiv *= (i + 1);
+    ansMul %= mod;
+    ansDiv %= mod;
+  }
+    
+  int ans = ansMul * modpow(ansDiv, mod - 2) % mod;
+  return ans;
+}
 \end{lstlisting}
 
 \end{document}

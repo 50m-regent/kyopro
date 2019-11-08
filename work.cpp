@@ -17,10 +17,13 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
 const int INF = 1e18, MOD = 1e9 + 7;
+int modpow(int x, int n) {
+  if(n < 2) return x;
+  return modpow(x * x % MOD, n / 2) * (n % 2 ? x : 1) % MOD;
+}
 signed main() {
     INCANT;
-    int n;
-    cin>>;
-
-    cout<<<<endl;
+    int n, r;
+    cin>>n>>r;
+    cout<<modpow(n, r);
 }
