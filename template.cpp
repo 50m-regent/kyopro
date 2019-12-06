@@ -21,6 +21,5 @@ signed main() {
     INCANT;
     int n;
     cin>>;
-
     cout<<<<endl;
 }

@@ -17,29 +17,32 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 #define rev(...) _overload(__VA_ARGS__, revi, _rev)(__VA_ARGS__)
 #define each(i, n) for(auto&& i: n)
 const int INF = 1e18, MOD = 1e9 + 7;
-int g[111111];
-bool used[111111];
-int search(int start, int now, int depth=0){
-    if(used[now]) {
-        if(g[now] == start){
-            return depth + 1;
-        }else{
-            return 0;
-        }
-    }
-    used[now] = true;
-    return search(start, g[now], depth + 1);
-}
 signed main() {
     INCANT;
-    int n, a, res = 0;
-    cin>>n;
-    rep(i, n){
-        cin>>a;
-        g[i] = (i + a) % n;
+    int n, k, h[333];
+    cin>>n>>k;
+    h[0] = 1;
+    rep(i, 1, n + 1) {
+        cin>>h[i];
     }
-    rep(i, n){
-        res += search(i, i);
+    h[n + 1] = 0;
+    int index;
+    while(k--) {
+        index = 0;
+        rep(i, 1, n + 1) {
+            if(h[i - 1] < h[i] && h[i + 1] < h[i]) {
+                rev(j, i, 1) {
+                    if(h[j] >)
+                }
+            }
+            if(h[i - 1] > h[i] && h[i + 1] > h[i]) {
+
+            }
+        }
+    }
+    int res = 0;
+    rep(i, 1, n + 1) {
+        res += max(0LL, h[i] - h[i + 1]);
     }
     cout<<res<<endl;
 }
