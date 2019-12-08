@@ -19,7 +19,22 @@ bool chmin(T& a, T b){return (a = min(a, b)) == b;}
 const int INF = 1e18, MOD = 1e9 + 7;
 signed main() {
     INCANT;
-    int n;
-    cin>>;
-    cout<<<<endl;
+    string list[] = {
+        "",
+        "SAT"
+        "FRI",
+        "THU",
+        "WED",
+        "TUE",
+        "MON",
+        "SUN",
+    };
+    string s;
+    cin>>s;
+    rep(i, 1, 8) {
+        if(s == list[i]) {
+            cout<<i;
+            return 0;
+        }
+    }
 }
