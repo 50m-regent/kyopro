@@ -103,13 +103,13 @@ vector<int> divisor(int n) {
 }
 
 // LCM
-int lcm(int a, int b) {return a / gcd(a, b) * b;}
+#define lcm(a, b) (a / gcd(a, b) * b)
 
 // 累乗
-int factorial(int a) {return a < 2 ? 1 : factorial(a - 1) * a;}
+#define factorial(a) (a < 2 ? 1 : factorial(a - 1) * a)
 
 // 総和
-int summation(int a) {return a < 1 ? 0 : (a * a + a) / 2;}
+#define summation(a) (a < 1 ? 0 : (a * a + a) / 2)
 
 // 組み合わせ
 int combination(int n, int r) {

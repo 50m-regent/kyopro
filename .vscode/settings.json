@@ -23,6 +23,9 @@
         "mutex": "cpp",
         "streambuf": "cpp",
         "string": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "*.tcc": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp"
     }
 }
